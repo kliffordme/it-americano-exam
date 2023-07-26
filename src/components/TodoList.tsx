@@ -155,13 +155,13 @@ const TodoList: React.FC<TodoListProps> = ({ todos, getTodos }) => {
                                 ? 
                                 <div>
                                     <input value={onComment} type="text" placeholder="Add a comment..." onChange={(e)=>setOnComment(e.target.value)}/>
-                                    <button style={{marginLeft:'10px'}} onClick={()=>createComment(todo.TodoId, todo.UserId)}>save</button>
+                                    <button style={{margin:'0 2px', marginLeft:'10px',  border: '1px solid lightblue', borderRadius: '5px', backgroundColor: 'lightblue', color:'white', cursor: 'pointer'}} onClick={()=>createComment(todo.TodoId, todo.UserId)}>save</button>
                                 </div>
                                 : "add a comment"
                             }
                         </div>
                         <div>
-                            <button onClick={handleCommentClick}>{isCommenting ? "cancel" : "comment"}</button>
+                            <button style={{margin:'0 2px',  border: '1px solid lightblue', borderRadius: '5px', backgroundColor: isCommenting ? 'red' : 'lightblue', color:'white', cursor: 'pointer'}} onClick={handleCommentClick}>{isCommenting ? "cancel" : "comment"}</button>
                         </div>
                     </div>
                     <div style={{height:' 80px', overflowY:'auto'}}>
@@ -181,13 +181,13 @@ const TodoList: React.FC<TodoListProps> = ({ todos, getTodos }) => {
                                 <div style={{paddingTop:'8px'}}>
                                     {editingCommentId === comment.CommentId ? (
                                     <div>
-                                      <button onClick={() => updateComment(comment.CommentId, comment.comment, todo.UserId)}>Submit</button>
-                                      <button onClick={() => setEditingCommentId(null)}>Cancel</button>
+                                      <button style={{margin:'0 2px',  border: '1px solid lightblue', borderRadius: '5px', backgroundColor: 'lightblue', color:'white', cursor: 'pointer'}} onClick={() => updateComment(comment.CommentId, comment.comment, todo.UserId)}>Submit</button>
+                                      <button style={{margin:'0 2px',  border: '1px solid lightblue', borderRadius: '5px', backgroundColor: 'orange', color:'white', cursor: 'pointer'}} onClick={() => setEditingCommentId(null)}>Cancel</button>
                                     </div>
                                     ) : (
-                                    <button onClick={() => setEditingCommentId(comment.CommentId)}>Update</button>
+                                    <button style={{margin:'0 2px',  border: '1px solid lightblue', borderRadius: '5px', backgroundColor: 'lightblue', color:'white', cursor: 'pointer'}} onClick={() => setEditingCommentId(comment.CommentId)}>Update</button>
                                     )}
-                                    <button onClick={()=>deleteComment(comment.CommentId, todo.UserId)}>Delete</button>
+                                    <button style={{margin:'0 2px',  border: '1px solid lightblue', borderRadius: '5px', backgroundColor: 'red', color:'white', cursor: 'pointer'}} onClick={()=>deleteComment(comment.CommentId, todo.UserId)}>Delete</button>
                                 </div>
                                 </div> : null}</div>
                         ))}
