@@ -109,7 +109,7 @@ function App() {
                   Name:
                   </div>
                   <div  style={{paddingBottom: '14px'}}>
-                  <input onChange={(e)=>setName(e.target.value)} style={{borderRadius:'5px', outline:'none', padding: '5px', marginTop:'5px'}} type="text" required placeholder='enter your email'/>
+                  <input onChange={(e)=>setName(e.target.value)} style={{borderRadius:'5px', outline:'none', padding: '5px', marginTop:'5px'}} type="text" required placeholder='enter your name'/>
                   </div>
                 </label>
                 <label>
