@@ -20,6 +20,15 @@ function App() {
   console.log(process.env.REACT_APP_TEST)
 
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_PROJECT_API}/users/me`, { withCredentials: true });
+        setUser(response.data);
+        getTodos(response.data.UserId)
+      } catch (error) {
+        setUser(null);
+      }
+    };
     checkAuth();
   }, []);
 
