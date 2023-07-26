@@ -35,7 +35,7 @@ function App() {
 
   const checkAuth = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_PROJECT_API}/users/me`, { withCredentials: true });
+      const response = await axios.post(`${process.env.REACT_APP_PROJECT_API}/users/me`, { withCredentials: true });
       setUser(response.data);
       getTodos(response.data.UserId)
     } catch (error) {
