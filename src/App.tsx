@@ -99,7 +99,7 @@ function App() {
 
   return (
     <Router>
-      <div style={{width: '700px', height:'500px', margin: "50px auto", borderRadius:'10px', border: '1px solid lightblue', overflowY: 'auto', backgroundColor:'white'}}>
+      <div style={{width: '700px', height:'700px', margin: "50px auto", borderRadius:'10px', border: '1px solid lightblue', overflowY: 'auto', backgroundColor:'white'}}>
         <Routes>
           <Route path="/register" element={
             <div style={{width: '200px', margin: 'auto', paddingTop:'50px'}}>
