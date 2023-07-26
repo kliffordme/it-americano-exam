@@ -32,6 +32,8 @@ function App() {
     checkAuth();
   }, []);
 
+  //test
+
   const checkAuth = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_PROJECT_API}/users/me`, { withCredentials: true });
