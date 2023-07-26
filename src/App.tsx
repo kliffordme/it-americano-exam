@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import TodoList from './components/TodoList';
 import TodoInput from './components/TodoInput';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
@@ -9,6 +9,17 @@ interface User {
   [key: string]: any;
 }
 
+interface UserRegistrationDetails {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface ErrorResponse {
+  message: string;
+}
+
 function App() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +27,7 @@ function App() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [todos, setTodos] = useState([])
-  
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -63,15 +74,36 @@ function App() {
   };
 
   // Replace this with actual registration logic
-  const handleRegister = async (e:any) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const register = await axios.post(`${process.env.REACT_APP_PROJECT_API}/users`, {name, email, password, confirmPassword})
-      console.log(register)
-      alert('Registration form submitted, try logging in now');
 
+    const userDetails: UserRegistrationDetails = { name, email, password, confirmPassword };
+
+    try {
+      const register = await axios.post(`${process.env.REACT_APP_PROJECT_API}/users`, userDetails)
+      alert('Registration form submitted, try logging in now');
     } catch (error) {
-      console.log(error)
+      const axiosError = error as AxiosError; // Type cast error as AxiosError
+
+        const errorResponse = axiosError.response?.data as ErrorResponse;
+      
+        if (axiosError.response) {
+          switch (axiosError.response.status) {
+            case 400:
+              setError(errorResponse?.message || 'Passwords do not match');
+              break;
+            case 401:
+              setError(errorResponse?.message || 'Unauthorized: The client must authenticate itself to get the requested response.');
+              break;
+            case 500:
+              setError(errorResponse?.message || 'Internal Server Error: The server has encountered a situation it doesn\'t know how to handle.');
+              break;
+            default:
+              setError(`An error occurred: ${errorResponse?.message || 'Unknown error'}`);
+          }
+        } else {
+          setError('Network error: Please check your internet connection or try again later.');
+        }
     }
   };
 
@@ -139,6 +171,8 @@ function App() {
                 <button type="submit" style={{color: 'white', backgroundColor:'grey', padding: '2px 20px', borderRadius:'4px', cursor:'pointer'}}>Register</button>
               </form>
               <p>Already have an account? <Link to="/login">Login</Link></p>
+              {error && <p>{error}</p>}
+
             </div>
           }/>
           <Route path="/login" element={
