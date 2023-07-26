@@ -17,12 +17,11 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
   const [todos, setTodos] = useState([])
   
-  console.log(process.env.REACT_APP_TEST)
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_PROJECT_API}/users/me`, { withCredentials: true });
+        const response = await axios.post(`${process.env.REACT_APP_PROJECT_API}/users/me`, { withCredentials: true });
         setUser(response.data);
         getTodos(response.data.UserId)
       } catch (error) {
@@ -66,7 +65,6 @@ function App() {
   // Replace this with actual registration logic
   const handleRegister = async (e:any) => {
     e.preventDefault();
-    console.log(name,email,password,confirmPassword)
     try {
       const register = await axios.post(`${process.env.REACT_APP_PROJECT_API}/users`, {name, email, password, confirmPassword})
       console.log(register)
